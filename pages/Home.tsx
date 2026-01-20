@@ -21,8 +21,8 @@ export const Home: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-black/60 z-10"></div>
         
         <img 
-          src="https://picsum.photos/seed/pv_aerial/1920/1080" 
-          alt="Puerto Vallarta Aerial" 
+          src="https://cdn.sanity.io/images/xhhnkk4g/production/624f4ae3feeaf14ed45d083062a8a1af4c475727-2132x1200.webp" 
+          alt="Puerto Vallarta Marina" 
           className="absolute inset-0 w-full h-full object-cover scale-105 animate-pulse-slow" 
           style={{animationDuration: '20s'}}
         />
@@ -155,7 +155,7 @@ export const Home: React.FC = () => {
             <div className="order-2 md:order-1">
               <div className="relative">
                 <div className="absolute -inset-4 border-2 border-brand-gold/30 rounded-2xl rotate-3"></div>
-                <img src="https://picsum.photos/seed/party_boat/800/600" alt="Party" className="rounded-2xl shadow-2xl relative z-10 grayscale-[50%] contrast-125" />
+                <img src="https://visitapuertovallarta.com.mx/uploads/254/clubes-nocturnos-en-puerto-vallarta-movil.jpg" alt="Party" className="rounded-2xl shadow-2xl relative z-10 grayscale-[50%] contrast-125 w-full object-cover h-[500px]" />
                 <div className="absolute -bottom-6 -right-6 bg-brand-gold text-black p-6 rounded-xl font-bold font-display text-2xl z-20 shadow-lg rotate-[-5deg]">
                   VIBRA <br/> VIP
                 </div>

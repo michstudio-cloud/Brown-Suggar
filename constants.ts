@@ -12,8 +12,8 @@ export const TOURS: Tour[] = [
     location: 'Terminal Marítima Portuaria API',
     category: TourCategory.NATURE,
     images: [
-      'https://picsum.photos/seed/yelapa1/800/1000',
-      'https://picsum.photos/seed/yelapa2/800/600'
+      'https://cdn.sanity.io/images/xhhnkk4g/production/e958716ceb396424a577a7824d795e53346dc3bb-2132x1200.webp',
+      'https://visitapuertovallarta.com.mx/uploads/123/malecon-de-puerto-vallarta-movil.jpg'
     ],
     includes: ['Desayuno Continental', 'Comida Buffet', 'Barra Libre Nacional', 'Snorkel, Kayak & Paddleboard', 'Caminata a Cascada', 'Show a bordo'],
     departureTimes: ['09:00 AM', '10:00 AM']
@@ -29,8 +29,8 @@ export const TOURS: Tour[] = [
     location: 'Terminal Marítima',
     category: TourCategory.ADVENTURE,
     images: [
-      'https://picsum.photos/seed/marietas1/800/1000',
-      'https://picsum.photos/seed/marietas2/800/600'
+      'https://cdn.sanity.io/images/xhhnkk4g/production/bf66daa2c33e22f2461e4dbcb82bef937d3e371d-2132x1200.webp',
+      'https://visitapuertovallarta.com.mx/uploads/1812/Marina-Vallarta.png'
     ],
     includes: ['Desayuno Continental', 'Comida', 'Barra Libre', 'Snorkel, Kayak & Paddleboard', 'Playa Nopalera', 'Entretenimiento'],
     departureTimes: ['09:00 AM']
@@ -46,8 +46,8 @@ export const TOURS: Tour[] = [
     location: 'Muelle de los Muertos / Terminal',
     category: TourCategory.RELAX,
     images: [
-      'https://picsum.photos/seed/animas1/800/1000',
-      'https://picsum.photos/seed/animas2/800/600'
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/7b/f4/78/vistas-espectaculares.jpg',
+      'https://visitapuertovallarta.com.mx/uploads/1814/Zona-Romantica.jpg'
     ],
     includes: ['Desayuno / Comida', 'Barra Libre', 'Equipo de Snorkel', 'Kayak', 'Cascada Quimixto', '2:30hrs en la playa'],
     departureTimes: ['10:00 AM']
@@ -63,8 +63,8 @@ export const TOURS: Tour[] = [
     location: 'Puerto Mágico',
     category: TourCategory.NATURE,
     images: [
-      'https://picsum.photos/seed/whale1/800/1000',
-      'https://picsum.photos/seed/whale2/800/600'
+      'https://cdn.sanity.io/images/xhhnkk4g/production/2c8db2f71066ceeef9c0e9a7d7302d55e0ea2b0f-1080x1630.webp',
+      'https://cdn.sanity.io/images/xhhnkk4g/production/90178198b7183cd47c6da068bc47d444abfefad2-2132x1200.webp'
     ],
     includes: ['Catamarán', 'Desayuno o Comida (Baguette)', 'Barra libre (con/sin alcohol)', 'Guía / Biólogo'],
     departureTimes: ['09:00 AM', '01:00 PM']
@@ -80,8 +80,8 @@ export const TOURS: Tour[] = [
     location: 'Zona Romántica / Malecón',
     category: TourCategory.PARTY,
     images: [
-      'https://picsum.photos/seed/party1/800/1000',
-      'https://picsum.photos/seed/party2/800/600'
+      'https://visitapuertovallarta.com.mx/uploads/254/clubes-nocturnos-en-puerto-vallarta-movil.jpg',
+      'https://visitapuertovallarta.com.mx/uploads/1814/Zona-Romantica.jpg'
     ],
     includes: ['Entradas VIP', 'Barra libre', 'Mesas reservadas', 'Host personal'],
     departureTimes: ['10:00 PM']
