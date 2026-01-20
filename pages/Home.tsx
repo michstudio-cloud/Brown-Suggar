@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, MapPin, Clock, ArrowUpRight, Wine, Anchor, Music, Users, Camera } from 'lucide-react';
+import { Search, MapPin, Clock, ArrowUpRight, Wine, Users } from 'lucide-react';
 import { TOURS } from '../constants';
 import { Button } from '../components/ui/Button';
+import { getIconForFeature } from '../utils/icons';
 
 export const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -122,10 +123,7 @@ export const Home: React.FC = () => {
                 <div className="grid grid-cols-2 gap-y-2 gap-x-1 mb-6">
                   {tour.includes.slice(0, 4).map((inc, i) => (
                     <div key={i} className="flex items-center gap-2 text-xs text-gray-300">
-                      {i === 0 ? <Wine size={14} className="text-brand-gold shrink-0" /> :
-                       i === 1 ? <Anchor size={14} className="text-brand-gold shrink-0" /> :
-                       i === 2 ? <Music size={14} className="text-brand-gold shrink-0" /> :
-                       <Camera size={14} className="text-brand-gold shrink-0" />}
+                      {getIconForFeature(inc, "w-3.5 h-3.5 text-brand-gold shrink-0")}
                       <span className="truncate">{inc}</span>
                     </div>
                   ))}

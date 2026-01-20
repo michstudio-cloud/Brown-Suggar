@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Clock, Users, CheckCircle, Calendar, MessageCircle, AlertCircle, Info } from 'lucide-react';
+import { ArrowLeft, MapPin, Clock, Calendar, Info } from 'lucide-react';
 import { TOURS } from '../constants';
 import { Button } from '../components/ui/Button';
 import { useBooking } from '../contexts/BookingContext';
 import { ReservationStatus } from '../types';
+import { getIconForFeature } from '../utils/icons';
 
 export const TourDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -114,8 +115,8 @@ export const TourDetails: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {tour.includes.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-4 bg-brand-charcoal p-4 rounded-xl border border-white/5 hover:border-brand-gold/30 transition-colors group">
-                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-brand-gold group-hover:bg-brand-gold group-hover:text-black transition-colors">
-                    <CheckCircle size={20} />
+                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-brand-gold group-hover:bg-brand-gold group-hover:text-black transition-colors shrink-0">
+                    {getIconForFeature(item, "w-5 h-5")}
                   </div>
                   <span className="text-gray-300 font-medium">{item}</span>
                 </div>
