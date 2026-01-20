@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Clock, Calendar, Info } from 'lucide-react';
-import { TOURS } from '../constants';
 import { Button } from '../components/ui/Button';
 import { useBooking } from '../contexts/BookingContext';
 import { ReservationStatus } from '../types';
@@ -10,8 +9,8 @@ import { getIconForFeature } from '../utils/icons';
 export const TourDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { addReservation } = useBooking();
-  const tour = TOURS.find(t => t.id === id);
+  const { addReservation, tours } = useBooking(); // Fetch tours from context
+  const tour = tours.find(t => t.id === id);
 
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -27,7 +26,7 @@ export const TourDetails: React.FC = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  if (!tour) return <div>Tour no encontrado</div>;
+  if (!tour) return <div className="min-h-screen bg-brand-dark flex items-center justify-center text-white">Tour no encontrado</div>;
 
   const totalPrice = (adults * tour.priceAdult) + (children * tour.priceChild);
 

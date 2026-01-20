@@ -1,11 +1,20 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Reservation, ReservationStatus } from '../types';
-import { MOCK_RESERVATIONS } from '../constants';
+import { Reservation, ReservationStatus, Tour } from '../types';
+import { MOCK_RESERVATIONS, TOURS as INITIAL_TOURS } from '../constants';
 
 interface BookingContextType {
+  // Tour Management
+  tours: Tour[];
+  addTour: (tour: Tour) => void;
+  updateTour: (id: string, updatedTour: Partial<Tour>) => void;
+  deleteTour: (id: string) => void;
+  
+  // Reservation Management
   reservations: Reservation[];
   addReservation: (reservation: Reservation) => void;
   updateReservationStatus: (id: string, status: ReservationStatus) => void;
+  
+  // Auth
   isAdmin: boolean;
   loginAdmin: (password: string) => Promise<boolean>;
   logoutAdmin: () => void;
@@ -14,14 +23,48 @@ interface BookingContextType {
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export const BookingProvider = ({ children }: { children?: ReactNode }) => {
-  const [reservations, setReservations] = useState<Reservation[]>([]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  // Initialize State from LocalStorage or Fallback to Constants
+  const [tours, setTours] = useState<Tour[]>(() => {
+    const saved = localStorage.getItem('sb_tours');
+    return saved ? JSON.parse(saved) : INITIAL_TOURS;
+  });
+
+  const [reservations, setReservations] = useState<Reservation[]>(() => {
+    const saved = localStorage.getItem('sb_reservations');
+    return saved ? JSON.parse(saved) : MOCK_RESERVATIONS;
+  });
+
+  const [isAdmin, setIsAdmin] = useState(() => {
+    return localStorage.getItem('sb_admin_session') === 'true';
+  });
+
+  // Persistence Effects
+  useEffect(() => {
+    localStorage.setItem('sb_tours', JSON.stringify(tours));
+  }, [tours]);
 
   useEffect(() => {
-    // Load mock data on init
-    setReservations(MOCK_RESERVATIONS);
-  }, []);
+    localStorage.setItem('sb_reservations', JSON.stringify(reservations));
+  }, [reservations]);
 
+  useEffect(() => {
+    localStorage.setItem('sb_admin_session', String(isAdmin));
+  }, [isAdmin]);
+
+  // --- Tour Actions ---
+  const addTour = (tour: Tour) => {
+    setTours(prev => [...prev, tour]);
+  };
+
+  const updateTour = (id: string, updatedTour: Partial<Tour>) => {
+    setTours(prev => prev.map(t => t.id === id ? { ...t, ...updatedTour } : t));
+  };
+
+  const deleteTour = (id: string) => {
+    setTours(prev => prev.filter(t => t.id !== id));
+  };
+
+  // --- Reservation Actions ---
   const addReservation = (reservation: Reservation) => {
     setReservations(prev => [reservation, ...prev]);
   };
@@ -32,8 +75,8 @@ export const BookingProvider = ({ children }: { children?: ReactNode }) => {
     ));
   };
 
+  // --- Auth Actions ---
   const loginAdmin = async (password: string): Promise<boolean> => {
-    // 1. Intentamos validar contra la API Segura (Serverless Function)
     try {
       const response = await fetch('/api/auth', {
         method: 'POST',
@@ -48,7 +91,6 @@ export const BookingProvider = ({ children }: { children?: ReactNode }) => {
       console.warn("API Auth failed, falling back to local check (only for dev)");
     }
 
-    // 2. Fallback para desarrollo local (si no estás corriendo 'vercel dev')
     // @ts-ignore
     if (import.meta.env.DEV) {
        // @ts-ignore
@@ -68,6 +110,10 @@ export const BookingProvider = ({ children }: { children?: ReactNode }) => {
 
   return (
     <BookingContext.Provider value={{ 
+      tours,
+      addTour,
+      updateTour,
+      deleteTour,
       reservations, 
       addReservation, 
       updateReservationStatus, 

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MapPin, Clock, ArrowUpRight, Wine, Users } from 'lucide-react';
-import { TOURS } from '../constants';
+import { useBooking } from '../contexts/BookingContext';
 import { Button } from '../components/ui/Button';
 import { getIconForFeature } from '../utils/icons';
 
 export const Home: React.FC = () => {
+  const { tours } = useBooking(); // Use tours from context
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredTours = TOURS.filter(tour => 
+  const filteredTours = tours.filter(tour => 
     tour.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
     tour.location.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -17,7 +18,7 @@ export const Home: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-brand-dark">
       {/* Hero Section */}
       <div className="relative h-screen w-full overflow-hidden">
-        {/* Dark Overlay with noise texture if possible, otherwise simple gradient */}
+        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/40 z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-black/60 z-10"></div>
         
@@ -146,7 +147,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* "Why Us" Section based on Flyer Graphic Style */}
+      {/* "Why Us" Section */}
       <section className="py-20 bg-brand-charcoal relative overflow-hidden border-t border-white/5">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
