@@ -1,7 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 import { TOURS } from "../constants";
 
-const apiKey = process.env.API_KEY || ''; // Ideally strictly from process.env
+// Safe access to process.env
+const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) || '';
 
 const systemInstruction = `
 Eres "Sandy", el concierge virtual de Suggar Brown Tours, una agencia de tours premium en Puerto Vallarta.
