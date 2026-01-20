@@ -7,7 +7,7 @@ interface BookingContextType {
   addReservation: (reservation: Reservation) => void;
   updateReservationStatus: (id: string, status: ReservationStatus) => void;
   isAdmin: boolean;
-  loginAdmin: (password: string) => boolean;
+  loginAdmin: (password: string) => Promise<boolean>;
   logoutAdmin: () => void;
 }
 
@@ -32,11 +32,33 @@ export const BookingProvider = ({ children }: { children?: ReactNode }) => {
     ));
   };
 
-  const loginAdmin = (password: string) => {
-    if (password === 'admin123') {
-      setIsAdmin(true);
-      return true;
+  const loginAdmin = async (password: string): Promise<boolean> => {
+    // 1. Intentamos validar contra la API Segura (Serverless Function)
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        body: JSON.stringify({ password })
+      });
+      
+      if (response.ok) {
+        setIsAdmin(true);
+        return true;
+      }
+    } catch (error) {
+      console.warn("API Auth failed, falling back to local check (only for dev)");
     }
+
+    // 2. Fallback para desarrollo local (si no estás corriendo 'vercel dev')
+    // @ts-ignore
+    if (import.meta.env.DEV) {
+       // @ts-ignore
+       const localPass = import.meta.env.VITE_ADMIN_PASSWORD;
+       if (localPass && password === localPass) {
+         setIsAdmin(true);
+         return true;
+       }
+    }
+
     return false;
   };
 

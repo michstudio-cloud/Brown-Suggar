@@ -1,8 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { TOURS } from "../constants";
 
-// Safe access to process.env
-const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) || '';
+declare var process: any;
 
 const systemInstruction = `
 Eres "Sandy", el concierge virtual de Suggar Brown Tours, una agencia de tours premium en Puerto Vallarta.
@@ -17,12 +16,15 @@ No inventes tours que no estén en la lista.
 `;
 
 export const getGeminiResponse = async (userMessage: string): Promise<string> => {
-  if (!apiKey) {
-    return "Lo siento, mi conexión con el cerebro central (API Key) no está configurada. Por favor contacta soporte.";
+  // As per guidelines: The API key must be obtained exclusively from the environment variable process.env.API_KEY.
+  if (!process.env.API_KEY) {
+    console.warn("API Key missing. Please set API_KEY in your environment variables.");
+    return "Lo siento, mi conexión con el cerebro central no está configurada. Por favor contacta soporte.";
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    // As per guidelines: Use process.env.API_KEY string directly when initializing
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: userMessage,
